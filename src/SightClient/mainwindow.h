@@ -12,6 +12,8 @@
 #include <QLabel>
 #include <QMainWindow>
 
+typedef QList<int> IntList;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -24,9 +26,9 @@ public:
     void setData(const QVariantMap &map);
 
 protected:
-    virtual void resizeEvent(QResizeEvent *event);
-
     virtual void showEvent(QShowEvent *event);
+
+    virtual void resizeEvent(QResizeEvent *event);
 
 private:
     QBoxLayout *m_boxLayout;
@@ -62,7 +64,7 @@ private:
 
     void addComboBoxes();
 
-    void setComboBox(QComboBox *comboBox, const QList<int> &colors, Qt::GlobalColor color, int column);
+    void setComboBox(QComboBox *comboBox, const IntList &colors, Qt::GlobalColor color, int column);
 
     void setSightColor(Qt::GlobalColor color);
 

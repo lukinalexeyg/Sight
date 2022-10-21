@@ -92,7 +92,7 @@ void MainWindow::addParameterRow(const Api::Parameter &parameter)
 
     QString nameText = parameter.text;
     if (!parameter.unit.isEmpty())
-        nameText.append(QString(" %1").arg(parameter.unit));
+        nameText.append(QString(", %1").arg(parameter.unit));
 
     QLabel *nameLabel = new QLabel(nameText);
 

@@ -12,9 +12,9 @@ Application::Application(int argc, char *argv[])
       m_mainWindow{new MainWindow},
       m_network{new Network(this)}
 {
-    QApplication::setApplicationName(APP_NAME);
-    QApplication::setApplicationVersion(APP_VERSION);
-    QApplication::setOrganizationName(APP_COMPANY);
+    setApplicationName(APP_NAME);
+    setApplicationVersion(APP_VERSION);
+    setOrganizationName(APP_COMPANY);
 
     m_network->startThread();
     connect(m_network, &Network::dataReceived, this, &Application::onNetworkDataReceived);

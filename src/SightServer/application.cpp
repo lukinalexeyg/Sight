@@ -10,9 +10,9 @@ Application::Application(int argc, char *argv[])
       m_settingsFile(QStringLiteral("%1/settings.ini").arg(applicationDirPath())),
       m_network{new Network(this)}
 {
-    QApplication::setApplicationName(APP_NAME);
-    QApplication::setApplicationVersion(APP_VERSION);
-    QApplication::setOrganizationName(APP_COMPANY);
+    setApplicationName(APP_NAME);
+    setApplicationVersion(APP_VERSION);
+    setOrganizationName(APP_COMPANY);
 
     m_mainWindow = new MainWindow;
     m_mainWindow->show();
@@ -25,7 +25,7 @@ Application::Application(int argc, char *argv[])
 
 Application::~Application()
 {
-    m_mainWindow->deleteLater();
+    delete m_mainWindow;
     m_network->stopThread();
 }
 

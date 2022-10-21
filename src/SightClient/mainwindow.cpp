@@ -20,8 +20,6 @@ namespace SettingsNames {
     static const QLatin1String aspectRatio("aspect_ratio");
 }
 
-typedef QList<int> IntList;
-
 typedef QMap<Qt::GlobalColor, QString> ColorMap;
 
 namespace Colors {
@@ -100,7 +98,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::initSettings()
 {
-    Settings settings(QStringLiteral("%1/settings.ini").arg(qApp->applicationDirPath()), QSettings::IniFormat);
+    Settings settings(app->settingsFile(), QSettings::IniFormat);
 
     settings.beginGroup(SettingsNames::background);
     settings.initValue(SettingsNames::color, m_backgroundColor, Background::colors);
@@ -135,16 +133,16 @@ void MainWindow::initParameter(Settings &settings, const Api::Parameter &paramet
 
 
 
-void MainWindow::resizeEvent(QResizeEvent*)
+void MainWindow::showEvent(QShowEvent *event)
 {
+    m_boxLayout->activate();
     setGraphicsViewScale();
 }
 
 
 
-void MainWindow::showEvent(QShowEvent *event)
+void MainWindow::resizeEvent(QResizeEvent*)
 {
-    m_boxLayout->activate();
     setGraphicsViewScale();
 }
 
@@ -199,7 +197,7 @@ void MainWindow::setGraphicsScene()
     pen.setColor(globalColor(m_crossColor));
     pen.setWidth(m_crossWidth);
 
-    const qreal halfCrossSize = m_crossSize / 2;
+    const qreal halfCrossSize = m_crossSize / 2.0;
 
     QGraphicsLineItem *graphicsLineItem1 = new QGraphicsLineItem;
     graphicsLineItem1->setLine(-halfCrossSize, 0.0, halfCrossSize, 0.0);
@@ -267,14 +265,14 @@ void MainWindow::addComboBoxes()
 
 
 
-void MainWindow::setComboBox(QComboBox *comboBox, const QList<int> &colors, const Qt::GlobalColor color, const int column)
+void MainWindow::setComboBox(QComboBox *comboBox, const IntList &colors, const Qt::GlobalColor color, const int column)
 {
     int currentIndex = 0;
     int i = 0;
 
     const QString currentName = Colors::names.value(color);
 
-    for (const auto color : colors) {
+    for (const int color : colors) {
         const QString name = Colors::names.value(globalColor(color));
 
         comboBox->addItem(name);
@@ -373,6 +371,7 @@ void MainWindow::updateSight()
 void MainWindow::setSightPos(QGraphicsSvgItem *graphicsSvgItem)
 {
     const QSizeF size = getViewSize();
+
     const qreal x = (size.width() * m_parameters.value(Api::horizontalShift.id) - Sight::size) / 2.0;
     const qreal y = (size.height() * m_parameters.value(Api::verticalShift.id) - Sight::size) / 2.0;
 
