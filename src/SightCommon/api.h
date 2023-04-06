@@ -41,10 +41,12 @@ static const Parameter verticalShift = {
     0.0
 };
 
-static const QMap<QString, Parameter> parameters = {
-    {angle.id, angle},
-    {horizontalShift.id, horizontalShift},
-    {verticalShift.id, verticalShift}
+#define PARAMETER_MAP_ITEM(x) {x.id, &x}
+
+static const QMap<QString, const Parameter*> parameters = {
+    PARAMETER_MAP_ITEM(angle),
+    PARAMETER_MAP_ITEM(horizontalShift),
+    PARAMETER_MAP_ITEM(verticalShift),
 };
 
 }

@@ -382,12 +382,12 @@ void MainWindow::setSightPos(QGraphicsSvgItem *graphicsSvgItem)
 
 QString MainWindow::labelText(const QString &name, const qreal value) const
 {
-    const Api::Parameter parameter = Api::parameters.value(name);
+    const Api::Parameter *parameter = Api::parameters.value(name);
 
-    QString text = QString("%1: %2").arg(parameter.text).arg(value);
+    QString text = QString("%1: %2").arg(parameter->text).arg(value);
 
-    if (!parameter.unit.isEmpty())
-        text.append(QString(" %1").arg(parameter.unit));
+    if (!parameter->unit.isEmpty())
+        text.append(QString(" %1").arg(parameter->unit));
 
     return text;
 }
