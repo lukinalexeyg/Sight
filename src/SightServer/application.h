@@ -17,7 +17,7 @@ public:
 
     ~Application();
 
-    QString settingsFile() const { return m_settingsFile; };
+    QString settingsFile() const { return m_settingsFile; }
 
 private:
     QString m_settingsFile;

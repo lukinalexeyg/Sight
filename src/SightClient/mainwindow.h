@@ -70,7 +70,7 @@ private:
 
     void updateSight();
 
-    QGraphicsSvgItem *addSight(Qt::GlobalColor color);
+    void addSight(Qt::GlobalColor color);
 
     void setSightPos(QGraphicsSvgItem *graphicsSvgItem);
 

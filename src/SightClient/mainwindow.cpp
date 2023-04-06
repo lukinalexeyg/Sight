@@ -133,7 +133,7 @@ void MainWindow::initParameter(Settings &settings, const Api::Parameter &paramet
 
 
 
-void MainWindow::showEvent(QShowEvent *event)
+void MainWindow::showEvent(QShowEvent*)
 {
     m_boxLayout->activate();
     setGraphicsViewScale();
@@ -235,8 +235,9 @@ void MainWindow::addLabels()
 
 void MainWindow::addLabel(const Api::Parameter &parameter, const int row)
 {
-    QLabel *label = new QLabel;
     const qreal value = m_parameters.value(parameter.id);
+
+    QLabel *label = new QLabel;    
     label->setText(labelText(parameter.id, value));
     m_gridLayout->addWidget(label, row, 2);
     m_labels.insert(parameter.id, label);
@@ -333,7 +334,7 @@ void MainWindow::setSightColor(const Qt::GlobalColor color)
     QGraphicsSvgItem *graphicsSvgItem = m_graphicsSvgItems.value(color, nullptr);
 
     if (graphicsSvgItem == nullptr)
-        graphicsSvgItem = addSight(color);
+        addSight(color);
 
     for (auto it = m_graphicsSvgItems.cbegin(); it != m_graphicsSvgItems.cend(); ++it) {
         if (it.key() == color)
@@ -347,15 +348,13 @@ void MainWindow::setSightColor(const Qt::GlobalColor color)
 
 
 
-QGraphicsSvgItem *MainWindow::addSight(const Qt::GlobalColor color)
+void MainWindow::addSight(const Qt::GlobalColor color)
 {
     QGraphicsSvgItem *graphicsSvgItem = new QGraphicsSvgItem(Sight::files.value(color));
     graphicsSvgItem->setScale(Sight::scale);
     setSightPos(graphicsSvgItem);
     m_graphicsScene->addItem(graphicsSvgItem);
     m_graphicsSvgItems.insert(color, graphicsSvgItem);
-
-    return graphicsSvgItem;
 }
 
 
@@ -384,10 +383,10 @@ QString MainWindow::labelText(const QString &name, const qreal value) const
 {
     const Api::Parameter *parameter = Api::parameters.value(name);
 
-    QString text = QString("%1: %2").arg(parameter->text).arg(value);
+    QString text = QStringLiteral("%1: %2").arg(parameter->text).arg(value);
 
     if (!parameter->unit.isEmpty())
-        text.append(QString(" %1").arg(parameter->unit));
+        text.append(QStringLiteral(" %1").arg(parameter->unit));
 
     return text;
 }

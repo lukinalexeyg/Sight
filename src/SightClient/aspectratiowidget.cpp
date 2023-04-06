@@ -43,8 +43,8 @@ void AspectRatioWidget::adjustToSize()
     const qreal fullHeight = size.height();
     const qreal width = qMin(fullWidth, fullHeight * m_aspectRatio);
     const qreal height = qMin(fullHeight, fullWidth / m_aspectRatio);
-    const int hMargin = qRound((fullWidth - width) / 2);
-    const int vMargin = qRound((fullHeight - height) / 2);
+    const int hMargin = qRound((fullWidth - width) / 2.0);
+    const int vMargin = qRound((fullHeight - height) / 2.0);
 
     setContentsMargins(hMargin, vMargin, hMargin, vMargin);
 }
