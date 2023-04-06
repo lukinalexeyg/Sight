@@ -1,0 +1,3 @@
+[submodule "src/submodules/LSettings"]
+	path = src/submodules/LSettings
+	url = https://github.com/lukinalexeyg/LSettings.git

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include "api.h"
-#include "settings.h"
+#include "lsettings.h"
 
 #include <QGridLayout>
 #include <QLabel>
@@ -31,7 +31,7 @@ private:
 private:
     void initSettings();
 
-    void initParameter(Settings &settings, const Api::Parameter &parameter);
+    void initParameter(LSettings &settings, const Api::Parameter &parameter);
 
     void setWidgets();
 

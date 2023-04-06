@@ -1,7 +1,7 @@
 #include "network.h"
 
 #include "application.h"
-#include "settings.h"
+#include "lsettings.h"
 
 #include <QApplication>
 #include <QDataStream>
@@ -27,7 +27,7 @@ Network::Network(QObject *parent)
 
 void Network::initSettings()
 {
-    Settings settings(app->settingsFile(), QSettings::IniFormat);
+    LSettings settings(app->settingsFile(), QSettings::IniFormat);
 
     settings.beginGroup(metaObject()->className());
     settings.initNumberValue(QStringLiteral("port"), m_port, 1, 65535);

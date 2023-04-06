@@ -36,6 +36,7 @@ HEADERS += \
     slider.h
 
 include(../SightCommon/SightCommon.pri)
+include(../submodules/LSettings/src/LSettings.pri)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

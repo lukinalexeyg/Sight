@@ -77,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    Settings settings(app->settingsFile(), QSettings::IniFormat);
+    QSettings settings(app->settingsFile(), QSettings::IniFormat);
 
     settings.beginGroup(SettingsNames::background);
     settings.setValue(SettingsNames::color, m_backgroundColor);
@@ -98,7 +98,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::initSettings()
 {
-    Settings settings(app->settingsFile(), QSettings::IniFormat);
+    LSettings settings(app->settingsFile(), QSettings::IniFormat);
 
     settings.beginGroup(SettingsNames::background);
     settings.initValue(SettingsNames::color, m_backgroundColor, Background::colors);
@@ -124,7 +124,7 @@ void MainWindow::initSettings()
 
 
 
-void MainWindow::initParameter(Settings &settings, const Api::Parameter &parameter)
+void MainWindow::initParameter(LSettings &settings, const Api::Parameter &parameter)
 {
     qreal value = parameter.defaultValue;
     settings.initNumberValue(parameter.id, value, parameter.minValue, parameter.maxValue);

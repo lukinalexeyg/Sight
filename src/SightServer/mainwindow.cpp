@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    Settings settings(app->settingsFile(), QSettings::IniFormat);
+    QSettings settings(app->settingsFile(), QSettings::IniFormat);
 
     settings.beginGroup(SettingsNames::parameters);
     settings.setValue(Api::angle.id, m_parameters.value(Api::angle.id));
@@ -42,7 +42,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::initSettings()
 {
-    Settings settings(app->settingsFile(), QSettings::IniFormat);
+    LSettings settings(app->settingsFile(), QSettings::IniFormat);
 
     settings.beginGroup(SettingsNames::parameters);
     initParameter(settings, Api::angle);
@@ -53,7 +53,7 @@ void MainWindow::initSettings()
 
 
 
-void MainWindow::initParameter(Settings &settings, const Api::Parameter &parameter)
+void MainWindow::initParameter(LSettings &settings, const Api::Parameter &parameter)
 {
     qreal value = parameter.defaultValue;
     settings.initNumberValue(parameter.id, value, parameter.minValue, parameter.maxValue);
