@@ -2,11 +2,13 @@
 
 #include "application.h"
 #include "aspectratiowidget.h"
+#include "constants.h"
 
 #include <QApplication>
 #include <QGraphicsLineItem>
 
-#define globalColor(color) static_cast<Qt::GlobalColor>(color)
+#define STATIC_CAST_INT(x) static_cast<int>(x)
+#define STATIC_CAST_COLOR(x) static_cast<Qt::GlobalColor>(x)
 
 namespace SettingsNames {
     static const QLatin1String background("Background");
@@ -67,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
     setMinimumWidth(640);
     setMinimumHeight(600);
 
-    const QFont font(QLatin1String("Segoe UI"), 11);
+    const QFont font(Font::family, Font::pointSize);
     setFont(font);
 
     setWidgets();
@@ -77,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    QSettings settings(app->settingsFile(), QSettings::IniFormat);
+    QSettings settings(APP->settingsFilePath(), QSettings::IniFormat);
 
     settings.beginGroup(SettingsNames::background);
     settings.setValue(SettingsNames::color, m_backgroundColor);
@@ -98,7 +100,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::initSettings()
 {
-    LSettings settings(app->settingsFile(), QSettings::IniFormat);
+    LSettings settings(APP->settingsFilePath(), QSettings::IniFormat);
 
     settings.beginGroup(SettingsNames::background);
     settings.initValue(SettingsNames::color, m_backgroundColor, Background::colors);
@@ -106,7 +108,7 @@ void MainWindow::initSettings()
     settings.endGroup();
 
     settings.beginGroup(SettingsNames::cross);
-    settings.initNumberValue(SettingsNames::color, m_crossColor, static_cast<int>(Qt::color0), static_cast<int>(Qt::darkYellow));
+    settings.initNumberValue(SettingsNames::color, m_crossColor, STATIC_CAST_INT(Qt::color0), STATIC_CAST_INT(Qt::darkYellow));
     settings.initNumberValue(SettingsNames::width, m_crossWidth, 0.1, 1.0);
     settings.initNumberValue(SettingsNames::size, m_crossSize, 1.0, 20.0);
     settings.endGroup();
@@ -158,8 +160,8 @@ void MainWindow::setWidgets()
     m_boxLayout->addWidget(m_graphicsView);
     m_boxLayout->setMargin(0);
 
-    AspectRatioWidget *aspectWidget = new AspectRatioWidget;
-    aspectWidget->setLayout(m_boxLayout);
+    AspectRatioWidget *aspectRatioWidget = new AspectRatioWidget;
+    aspectRatioWidget->setLayout(m_boxLayout);
 
     m_gridLayout = new QGridLayout;
     m_gridLayout->setSpacing(10);
@@ -176,7 +178,7 @@ void MainWindow::setWidgets()
     hBoxLayout->addStretch();
 
     QVBoxLayout *vBoxLayout = new QVBoxLayout;
-    vBoxLayout->addWidget(aspectWidget);
+    vBoxLayout->addWidget(aspectRatioWidget);
     vBoxLayout->addLayout(hBoxLayout);
 
     QWidget *centralWidget = new QWidget(this);
@@ -191,10 +193,10 @@ void MainWindow::setWidgets()
 void MainWindow::setGraphicsScene()
 {
     m_graphicsScene = new QGraphicsScene(this);
-    m_graphicsScene->setBackgroundBrush(globalColor(m_backgroundColor));
+    m_graphicsScene->setBackgroundBrush(STATIC_CAST_COLOR(m_backgroundColor));
 
     QPen pen;
-    pen.setColor(globalColor(m_crossColor));
+    pen.setColor(STATIC_CAST_COLOR(m_crossColor));
     pen.setWidth(m_crossWidth);
 
     const qreal halfCrossSize = m_crossSize / 2.0;
@@ -210,7 +212,7 @@ void MainWindow::setGraphicsScene()
     m_graphicsScene->addItem(graphicsLineItem1);
     m_graphicsScene->addItem(graphicsLineItem2);
 
-    setSightColor(globalColor(m_sightColor));
+    setSightColor(STATIC_CAST_COLOR(m_sightColor));
 }
 
 
@@ -248,7 +250,7 @@ void MainWindow::addLabel(const Api::Parameter &parameter, const int row)
 void MainWindow::addComboBoxes()
 {
     QComboBox *backgroundComboBox = new QComboBox;
-    setComboBox(backgroundComboBox, Background::colors, globalColor(m_backgroundColor), 0);
+    setComboBox(backgroundComboBox, Background::colors, STATIC_CAST_COLOR(m_backgroundColor), 0);
 
     connect(backgroundComboBox, &QComboBox::currentTextChanged, this, [this](const QString &text) {
         const Qt::GlobalColor color = Colors::names.key(text);
@@ -257,7 +259,7 @@ void MainWindow::addComboBoxes()
     });
 
     QComboBox *sightComboBox = new QComboBox;
-    setComboBox(sightComboBox, Sight::colors, globalColor(m_sightColor), 1);
+    setComboBox(sightComboBox, Sight::colors, STATIC_CAST_COLOR(m_sightColor), 1);
 
     connect(sightComboBox, &QComboBox::currentTextChanged, this, [this](const QString &text) {
         setSightColor(Colors::names.key(text));
@@ -274,7 +276,7 @@ void MainWindow::setComboBox(QComboBox *comboBox, const IntList &colors, const Q
     const QString currentName = Colors::names.value(color);
 
     for (const int color : colors) {
-        const QString name = Colors::names.value(globalColor(color));
+        const QString name = Colors::names.value(STATIC_CAST_COLOR(color));
 
         comboBox->addItem(name);
 
@@ -361,7 +363,7 @@ void MainWindow::addSight(const Qt::GlobalColor color)
 
 void MainWindow::updateSight()
 {
-    QGraphicsSvgItem *graphicsSvgItem = m_graphicsSvgItems.value(globalColor(m_sightColor), nullptr);
+    QGraphicsSvgItem *graphicsSvgItem = m_graphicsSvgItems.value(STATIC_CAST_COLOR(m_sightColor), nullptr);
     setSightPos(graphicsSvgItem);
 }
 

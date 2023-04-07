@@ -1,5 +1,7 @@
 #include "application.h"
 
+#include "constants.h"
+
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
@@ -8,7 +10,7 @@
 
 Application::Application(int argc, char *argv[])
     : QApplication{argc, argv},
-      m_settingsFile(QStringLiteral("%1/settings.ini").arg(applicationDirPath())),
+      m_settingsFilePath(QStringLiteral("%1/%2").arg(applicationDirPath(), s_settingsFileName)),
       m_mainWindow{new MainWindow},
       m_network{new Network(this)}
 {

@@ -5,4 +5,5 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/api.h \
+    $$PWD/constants.h \
     $$PWD/worker.h

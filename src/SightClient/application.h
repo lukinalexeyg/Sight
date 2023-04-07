@@ -6,7 +6,7 @@
 
 #include <QApplication>
 
-#define app qobject_cast<Application*>(qApp)
+#define APP qobject_cast<Application*>(qApp)
 
 class Application : public QApplication
 {
@@ -17,10 +17,10 @@ public:
 
     ~Application();
 
-    QString settingsFile() const { return m_settingsFile; }
+    QString settingsFilePath() const { return m_settingsFilePath; }
 
 private:
-    QString m_settingsFile;
+    QString m_settingsFilePath;
     MainWindow *m_mainWindow;
     Network *m_network;
 

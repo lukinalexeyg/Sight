@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 
 #include "application.h"
+#include "constants.h"
 #include "slider.h"
 
 namespace SettingsNames {
@@ -19,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     setFixedWidth(500);
     setFixedHeight(170);
 
-    const QFont font(QLatin1String("Segoe UI"), 11);
+    const QFont font(Font::family, Font::pointSize);
     setFont(font);
 
     setWidgets();
@@ -29,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    QSettings settings(app->settingsFile(), QSettings::IniFormat);
+    QSettings settings(APP->settingsFilePath(), QSettings::IniFormat);
 
     settings.beginGroup(SettingsNames::parameters);
     settings.setValue(Api::angle.id, m_parameters.value(Api::angle.id));
@@ -42,7 +43,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::initSettings()
 {
-    LSettings settings(app->settingsFile(), QSettings::IniFormat);
+    LSettings settings(APP->settingsFilePath(), QSettings::IniFormat);
 
     settings.beginGroup(SettingsNames::parameters);
     initParameter(settings, Api::angle);

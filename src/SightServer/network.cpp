@@ -1,6 +1,7 @@
 #include "network.h"
 
 #include "application.h"
+#include "constants.h"
 #include "lsettings.h"
 
 #include <QNetworkDatagram>
@@ -11,7 +12,7 @@
 Network::Network(QObject *parent)
     : Worker{parent},
       m_udpSocket{new QUdpSocket(this)},
-      m_port(45678)
+      m_port(Port::def)
 {
     initSettings();
 
@@ -22,10 +23,10 @@ Network::Network(QObject *parent)
 
 void Network::initSettings()
 {
-    LSettings settings(app->settingsFile(), QSettings::IniFormat);
+    LSettings settings(APP->settingsFilePath(), QSettings::IniFormat);
 
     settings.beginGroup(metaObject()->className());
-    settings.initNumberValue(QStringLiteral("port"), m_port, 1, 65535);
+    settings.initNumberValue(Port::name, m_port, Port::min, Port::max);
     settings.endGroup();
 }
 
