@@ -14,7 +14,7 @@
 
 
 Network::Network(QObject *parent)
-    : Worker{parent},
+    : LThreadWorker{parent},
       m_udpSocket{new QUdpSocket(this)},
       m_port(Port::def)
 {

@@ -1,9 +1,7 @@
 INCLUDEPATH += $$PWD
 
-SOURCES += \
-    $$PWD/worker.cpp
+SOURCES +=
 
 HEADERS += \
     $$PWD/api.h \
-    $$PWD/constants.h \
-    $$PWD/worker.h
+    $$PWD/constants.h

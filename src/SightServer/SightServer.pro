@@ -35,8 +35,11 @@ HEADERS += \
     network.h \
     slider.h
 
+SUBMODULES_PATH = $$PWD/../submodules
+
 include(../SightCommon/SightCommon.pri)
-include(../submodules/LSettings/src/LSettings.pri)
+include($$SUBMODULES_PATH/LSettings/src/LSettings.pri)
+include($$SUBMODULES_PATH/LThreadWorker/src/LThreadWorker.pri)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

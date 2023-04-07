@@ -1,11 +1,11 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-#include "worker.h"
+#include "lthreadworker.h"
 
 #include <QUdpSocket>
 
-class Network : public Worker
+class Network : public LThreadWorker
 {
     Q_OBJECT
 
