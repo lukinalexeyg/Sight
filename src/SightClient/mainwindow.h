@@ -23,6 +23,7 @@ public:
 
     ~MainWindow();
 
+public:
     void setData(const QVariantMap &map);
 
 protected:

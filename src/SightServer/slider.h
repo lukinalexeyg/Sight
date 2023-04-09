@@ -12,6 +12,7 @@ public:
 
     explicit Slider(QWidget *parent = nullptr);
 
+public:
     void setScale(qreal scale);
 
     qreal scale() const { return m_scale; }

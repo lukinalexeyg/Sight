@@ -10,15 +10,15 @@ Slider::Slider(Qt::Orientation orientation, QWidget *parent)
 
 
 
-Slider::Slider(QWidget *parent) :
-    QSlider{parent}
+Slider::Slider(QWidget *parent)
+    : QSlider{parent}
 {
     connect(this, &QSlider::valueChanged, this, &Slider::onValueChanged);
 }
 
 
 
-void Slider::setScale(qreal scale)
+void Slider::setScale(const qreal scale)
 {
     if (m_scale == scale)
         return;

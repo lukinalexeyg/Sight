@@ -9,6 +9,7 @@ class AspectRatioWidget : public QWidget
 public:
     explicit AspectRatioWidget(qreal aspectRatio = 4.0/3.0, QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
+public:
     void setAspectRatio(qreal aspectRatio);
 
     qreal aspectRatio() const { return m_aspectRatio; }

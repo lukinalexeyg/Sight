@@ -17,12 +17,16 @@ public:
 
     ~Application();
 
+public:
     QString settingsFilePath() const { return m_settingsFilePath; }
 
 private:
     QString m_settingsFilePath;
     MainWindow *m_mainWindow;
     Network *m_network;
+
+private:
+    Q_DISABLE_COPY(Application)
 
 private:
     void sendData(const QVariantMap &map);
