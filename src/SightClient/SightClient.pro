@@ -39,7 +39,7 @@ SUBMODULES_PATH = $$PWD/../submodules
 
 include(../SightCommon/SightCommon.pri)
 include($$SUBMODULES_PATH/LSettings/src/LSettings.pri)
-include($$SUBMODULES_PATH/LThreadWorker/src/LThreadWorker.pri)
+include($$SUBMODULES_PATH/LWorker/src/LWorker.pri)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
