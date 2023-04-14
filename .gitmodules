@@ -1,6 +1,3 @@
 [submodule "src/submodules/LSettings"]
 	path = src/submodules/LSettings
 	url = https://github.com/lukinalexeyg/LSettings.git
-[submodule "src/submodules/LThreadWorker"]
-	path = src/submodules/LThreadWorker
-	url = https://github.com/lukinalexeyg/LThreadWorker.git
